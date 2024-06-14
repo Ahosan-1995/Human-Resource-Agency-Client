@@ -1,3 +1,5 @@
+import About from "./About";
+import Package from "./Package";
 import Slider from "./Slider";
 
 
@@ -9,11 +11,9 @@ const Home = () => {
     return (
         <div>
             <Slider></Slider>
-            <h2>This is home page</h2>
-            <h2>This is home page</h2>
-            <h2>This is home page</h2>
-            <h2>This is home page</h2>
-            <h2>This is home page</h2>
+            <About></About>
+            <Package></Package>
+            
         </div>
     );
 };

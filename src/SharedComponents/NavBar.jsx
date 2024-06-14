@@ -16,27 +16,27 @@ const NavBar = () => {
     </>
   );
 
-  const NavOptionsForUser = (
-    <>
-      <li><Link to='/'>Home</Link></li>
-      <li><Link to='/menu'>My asset</Link></li>
-      <li><Link to='/order/salad'>My team</Link></li>
-      <li><Link to='/login'>Request for an asset</Link></li>
-      <li><Link to='/login'>Profile</Link></li>
-    </>
-  );
+//   const NavOptionsForUser = (
+//     <>
+//       <li><Link to='/'>Home</Link></li>
+//       <li><Link to='/menu'>My asset</Link></li>
+//       <li><Link to='/order/salad'>My team</Link></li>
+//       <li><Link to='/login'>Request for an asset</Link></li>
+//       <li><Link to='/login'>Profile</Link></li>
+//     </>
+//   );
 
-  const NavOptionsForHr = (
-    <>
-      <li><Link to='/'>Home</Link></li>
-      <li><Link to='/menu'>Add an asset</Link></li>
-      <li><Link to='/order/salad'>All requests</Link></li>
-      <li><Link to='/login'>Custom requests list</Link></li>
-      <li><Link to='/login'>My employee list</Link></li>
-      <li><Link to='/login'>Add an employee</Link></li>
-      <li><Link to='/login'>Profile</Link></li>
-    </>
-  );
+//   const NavOptionsForHr = (
+//     <>
+//       <li><Link to='/'>Home</Link></li>
+//       <li><Link to='/menu'>Add an asset</Link></li>
+//       <li><Link to='/order/salad'>All requests</Link></li>
+//       <li><Link to='/login'>Custom requests list</Link></li>
+//       <li><Link to='/login'>My employee list</Link></li>
+//       <li><Link to='/login'>Add an employee</Link></li>
+//       <li><Link to='/login'>Profile</Link></li>
+//     </>
+//   );
 
   return (
     <>
