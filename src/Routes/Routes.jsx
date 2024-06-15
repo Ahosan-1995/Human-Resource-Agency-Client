@@ -4,6 +4,13 @@ import Home from "../Home/Home";
 import LoginEmployee from "../RandomAsset/LoginEmployee";
 import RegisterEmployee from "../RandomAsset/RegisterEmployee";
 import RegisterHr from "../RandomAsset/RegisterHr";
+import MainForHr from "../HomeForHr/MainForHr";
+import HomeHrMain from "../HomeForHr/HomeHrMain";
+import AddAsset from "../HomeForHr/HrAllRoutes/AddAsset";
+import AllRequest from "../HomeForHr/HrAllRoutes/AllRequest";
+import MyEmployeeList from "../HomeForHr/HrAllRoutes/MyEmployeeList";
+import AddEmployee from "../HomeForHr/HrAllRoutes/AddEmployee";
+import HrProfile from "../HomeForHr/HrAllRoutes/HrProfile";
 
 
 
@@ -34,6 +41,38 @@ export const router = createBrowserRouter([
         
       ]
     },
+    {
+      path: "hr",
+      element: <MainForHr></MainForHr>,
+      children:[
+       {
+        path:'home',
+        element:<HomeHrMain></HomeHrMain>
+       },
+       {
+        path:'addAsset',
+        element:<AddAsset></AddAsset>
+       },
+       {
+        path:'allRequest',
+        element:<AllRequest></AllRequest>
+       },
+       {
+        path:'employeeList',
+        element:<MyEmployeeList></MyEmployeeList>
+       },
+       {
+        path:'addEmployee',
+        element:<AddEmployee></AddEmployee>
+       },
+       {
+        path:'profile',
+        element:<HrProfile></HrProfile>
+       }
+       
+        
+      ]
+    }
  
   ]);
   
