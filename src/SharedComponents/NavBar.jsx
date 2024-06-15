@@ -10,9 +10,10 @@ const NavBar = () => {
   const NavOptions = (
     <>
       <li><Link to='/'>Home</Link></li>
-      <li><Link to='/menu'>Join as employee</Link></li>
-      <li><Link to='/order/salad'>Join as HR manager</Link></li>
+      <li><Link to='/registerEmp'>Join as employee</Link></li>
+      <li><Link to='/registerHr'>Join as HR manager</Link></li>
       <li><Link to='/login'>Login</Link></li>
+      
     </>
   );
 
