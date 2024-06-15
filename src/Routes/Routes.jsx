@@ -11,6 +11,7 @@ import AllRequest from "../HomeForHr/HrAllRoutes/AllRequest";
 import MyEmployeeList from "../HomeForHr/HrAllRoutes/MyEmployeeList";
 import AddEmployee from "../HomeForHr/HrAllRoutes/AddEmployee";
 import HrProfile from "../HomeForHr/HrAllRoutes/HrProfile";
+import AssetList from "../HomeForHr/HrAllRoutes/AssetList";
 
 
 
@@ -68,6 +69,10 @@ export const router = createBrowserRouter([
        {
         path:'profile',
         element:<HrProfile></HrProfile>
+       },
+       {
+        path:'list',
+        element:<AssetList></AssetList>
        }
        
         

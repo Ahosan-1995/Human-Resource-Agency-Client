@@ -41,6 +41,7 @@ const NavBar = () => {
     const NavOptionsForHr = (
       <>
         <li><Link to='/hr/home'>Home</Link></li>
+        <li><Link to='/hr/list'>Asset List</Link></li>
         <li><Link to='/hr/addAsset'>Add an asset</Link></li>
         <li><Link to='/hr/allRequest'>All requests</Link></li>
         <li><Link to='/hr/employeeList'>My employee list</Link></li>
