@@ -10,7 +10,7 @@ const MainForHr = () => {
             <NavBar></NavBar>
             <Outlet></Outlet>
             <Footer></Footer>
-        </div>
+            </div>
         </div>
     );
 };
