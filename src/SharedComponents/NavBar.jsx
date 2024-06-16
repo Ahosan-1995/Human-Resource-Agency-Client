@@ -21,19 +21,19 @@ const NavBar = () => {
   const NavOptionsForUser = (
     <>
       <li>
-        <Link to="/">Home</Link>
+        <Link to="/employee/home">Home</Link>
       </li>
       <li>
-        <Link to="/menu">My asset</Link>
+        <Link to="/employee/myAsset">My asset</Link>
       </li>
       <li>
-        <Link to="/order/salad">My team</Link>
+        <Link to="/employee/myTeam">My team</Link>
       </li>
       <li>
-        <Link to="/login">Request for an asset</Link>
+        <Link to="/employee/request">Request for an asset</Link>
       </li>
       <li>
-        <Link to="/login">Profile</Link>
+        <Link to="/employee/profile">Profile</Link>
       </li>
     </>
   );
