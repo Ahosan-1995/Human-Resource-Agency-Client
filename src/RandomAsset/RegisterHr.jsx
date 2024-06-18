@@ -1,14 +1,69 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SocialLogin from "../SharedComponents/SocialLogin";
+import UseAxiosPublic from "../Provider/UseAxiosPublic";
+import { useContext } from "react";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const RegisterHr = () => {
+  
+  const axiosPublic = UseAxiosPublic();
+
+  const {createUser,updateUserProfile}=useContext(AuthContext);
+
+
   const {
     register,
     handleSubmit,
-    // reset,
+    reset,
     formState: { errors },
   } = useForm();
+
+  const navigate = useNavigate();
+
+  const onSubmit = (data) => {
+    // console.log(data)
+    createUser(data.email,data.password)
+    .then(result=>{
+        const loggedUser=result.user;
+        // console.log(loggedUser);
+        updateUserProfile(data.name,data.photoURL)
+        .then(()=>{
+            console.log('user profile info updated');
+            navigate('/login');  //remove after post on database
+
+// to do when create data base
+
+            // const userInfo={
+            //     name: data.name,
+            //     email: data.email,
+
+            // }
+            // axiosPublic.post('/users', userInfo)
+            // .then(res=>{
+            //     if(res.data.insertedId){
+            //         console.log('user added to the database');
+            //         reset();
+            //         navigate('/');
+            //     }
+            // })
+
+
+
+        })
+        .catch(error=>{
+            console.log(error);
+        })
+    })
+};
+
+
+
+
+
+
+
+
 
   return (
     <div>
@@ -23,7 +78,7 @@ const RegisterHr = () => {
             </p>
           </div>
           <div className="card  w-full  shadow-2xl bg-base-100">
-            <form onSubmit={handleSubmit} className="card-body">
+            <form onSubmit={handleSubmit(onSubmit)} className="card-body">
               <div className="md:flex gap-3">
                 <div className="form-control">
                   <label className="label">
@@ -63,11 +118,11 @@ const RegisterHr = () => {
                   <input
                     // {...register("name")}
                     type="text"
-                    placeholder="logo"
+                    placeholder="photoURL"
                     className="input input-bordered"
-                    name="logo"
+                    name="photoURL"
                     // required
-                    {...register("logo", { required: true })}
+                    {...register("photoURL", { required: true })}
                   />
                   {errors.photoURL && <span>This field is required</span>}
                 </div>
@@ -115,9 +170,10 @@ const RegisterHr = () => {
                     className="input input-bordered"
                     name="package"
                     // required
-                    {...register("package", { required: true })}
+                    // {...register("package", { required: true })}
+                    {...register("package")}
                   />
-                  {errors.dob && <span>This field is required</span>}
+                  {errors.package && <span>This field is required</span>}
                 </div>
               </div>
 

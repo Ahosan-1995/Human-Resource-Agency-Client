@@ -1,24 +1,32 @@
+import { useContext } from "react";
 import { FaGoogle } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
-
-
-
-
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../Provider/AuthProvider";
+import SocialLogin from "../SharedComponents/SocialLogin";
 
 const LoginEmployee = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    const handleLogin = ()=>{
-        
-    
+  const from = location.state?.from.pathname || "/";
 
-    }
-    
-    
-    
-     // GOOGLE SIGN IN
-     const handleGoogleSignIn=()=>{
-          
-     }
+  const { signIn } = useContext(AuthContext);
+
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password);
+
+    signIn(email, password).then((result) => {
+      const user = result.user;
+      console.log(user);
+      navigate(from, { replace: true });
+    });
+  };
+
 
 
   return (
@@ -73,15 +81,14 @@ const LoginEmployee = () => {
                     Login
                   </button>
 
-                  <button className=""><a
-                    onClick={handleGoogleSignIn}
-                    className="flex items-center bg-[#6292a6] justify-center px-6 py-3 mt-4 text-white transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600"
-                  >
-                    <FaGoogle></FaGoogle>
-                    <span className="mx-2">Sign in with Google</span>
-                  </a></button>
+            
+                  <div className="flex">
+                     <SocialLogin></SocialLogin>
+                    </div>
+               
+        
 
-                  <p className="text-center mb-5 mt-5 flex flex-col">
+                  <div className="text-center mb-5 mt-5 flex flex-col">
                     <p>Do not have an account please </p>
                     <NavLink to="/registerHr">
                       <span className="font-bold">Register as an HR</span>
@@ -89,7 +96,7 @@ const LoginEmployee = () => {
                     <NavLink to="/registerEmp">
                       <span className="font-bold">Register as an employee</span>
                     </NavLink>
-                  </p>
+                  </div>
                 </div>
               </form>
             </div>
