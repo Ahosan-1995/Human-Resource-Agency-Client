@@ -15,6 +15,10 @@ const NavBar = () => {
       <li>
         <Link to="/login">Login</Link>
       </li>
+      <li>
+        <Link to="/profile">Profile</Link>
+      </li>
+
     </>
   );
 
@@ -32,9 +36,9 @@ const NavBar = () => {
       <li>
         <Link to="/employee/request">Request for an asset</Link>
       </li>
-      <li>
+      {/* <li>
         <Link to="/employee/profile">Profile</Link>
-      </li>
+      </li> */}
     </>
   );
 
@@ -46,7 +50,7 @@ const NavBar = () => {
         <li><Link to='/hr/allRequest'>All requests</Link></li>
         <li><Link to='/hr/employeeList'>My employee list</Link></li>
         <li><Link to='/hr/addEmployee'>Add an employee</Link></li>
-        <li><Link to='/hr/profile'>Profile</Link></li>
+        {/* <li><Link to='/hr/profile'>Profile</Link></li> */}
       </>
     );
 

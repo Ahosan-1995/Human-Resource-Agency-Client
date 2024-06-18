@@ -18,6 +18,9 @@ import MyTeam from "../HomeForEmployee/AllEmployeeRoutes/MyTeam";
 import RequestAsset from "../HomeForEmployee/AllEmployeeRoutes/RequestAsset";
 import EmployeeProfile from "../HomeForEmployee/AllEmployeeRoutes/EmployeeProfile";
 import Main3 from "../HomeForEmployee/Main3";
+import PrivateRoute from "./PrivateRoute";
+import ProfileHR_Employee from "../SharedComponents/ProfileHR_Employee";
+
 
 
 
@@ -44,13 +47,17 @@ export const router = createBrowserRouter([
         {
             path:'/registerHr',
             element:<RegisterHr></RegisterHr>
+        },
+        {
+          path:'/profile',
+          element:<PrivateRoute><ProfileHR_Employee></ProfileHR_Employee></PrivateRoute>
         }
         
       ]
     },
     {
       path: "hr",
-      element: <MainForHr></MainForHr>,
+      element: <PrivateRoute><MainForHr></MainForHr></PrivateRoute>,
       children:[
        {
         path:'home',
@@ -58,54 +65,54 @@ export const router = createBrowserRouter([
        },
        {
         path:'addAsset',
-        element:<AddAsset></AddAsset>
+        element:<PrivateRoute><AddAsset></AddAsset></PrivateRoute>
        },
        {
         path:'allRequest',
-        element:<AllRequest></AllRequest>
+        element:<PrivateRoute><AllRequest></AllRequest></PrivateRoute>
        },
        {
         path:'employeeList',
-        element:<MyEmployeeList></MyEmployeeList>
+        element:<PrivateRoute><MyEmployeeList></MyEmployeeList></PrivateRoute>
        },
        {
         path:'addEmployee',
-        element:<AddEmployee></AddEmployee>
+        element:<PrivateRoute><AddEmployee></AddEmployee></PrivateRoute>
        },
        {
         path:'profile',
-        element:<HrProfile></HrProfile>
+        element:<PrivateRoute><HrProfile></HrProfile></PrivateRoute>
        },
        {
         path:'list',
-        element:<AssetList></AssetList>
+        element:<PrivateRoute><AssetList></AssetList></PrivateRoute>
        }  
       ]
     },
 
     {
       path: "employee",
-      element: <Main3></Main3>,
+      element: <PrivateRoute><Main3></Main3></PrivateRoute>,
       children:[
        {
         path:'myAsset',
-        element:<MyAsset></MyAsset>
+        element:<PrivateRoute><MyAsset></MyAsset></PrivateRoute>
        },
        {
         path:'myTeam',
-        element:<MyTeam></MyTeam>
+        element:<PrivateRoute><MyTeam></MyTeam></PrivateRoute>
        },
        {
         path:'request',
-        element:<RequestAsset></RequestAsset>
+        element:<PrivateRoute><RequestAsset></RequestAsset></PrivateRoute>
        },
        {
         path:'profile',
-        element:<EmployeeProfile></EmployeeProfile>
+        element:<PrivateRoute><EmployeeProfile></EmployeeProfile></PrivateRoute>
        },
        {
         path:'home',
-        element:<EmployeeHome></EmployeeHome>
+        element:<PrivateRoute><EmployeeHome></EmployeeHome></PrivateRoute>
        },
       ]
     }
