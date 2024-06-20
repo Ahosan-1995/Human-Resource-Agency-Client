@@ -43,7 +43,7 @@ const RegisterHr = () => {
                 role: data.role,
 
             }
-            axiosPublic.post('/allUsers', userInfo)
+            axiosPublic.post('/assets', userInfo)
             .then(res=>{
                 if(res.data.insertedId){
                     console.log('user added to the database');

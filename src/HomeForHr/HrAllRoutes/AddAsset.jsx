@@ -1,7 +1,21 @@
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { AuthContext } from "../../Provider/AuthProvider";
+import UseAxiosSecure from "../../Provider/UseAxiosSecure";
+
+
+
 
 const AddAsset = () => {
+
+
+  const { user } = useContext(AuthContext);
+
   const currentDate = new Date().toLocaleDateString();
+
+  const axiosSecure=UseAxiosSecure();
+
+
   console.log(currentDate);
 
   const {
@@ -11,7 +25,25 @@ const AddAsset = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = () => {
+  const onSubmit = async(data) => {
+
+      const assets={
+      productName: data.productName,
+      productType: data.productType,
+      quantity: data.quantity,
+      date: currentDate,
+      email: data.email,
+  }
+
+            axiosSecure.post('/assets', assets)
+            .then(res=>{
+                if(res.data.insertedId){
+                    console.log('user added to the database');
+                    reset();
+                }
+            })
+
+
     
     
   };
@@ -19,7 +51,7 @@ const AddAsset = () => {
   return (
     <div>
       <h2 className="text-3xl font-bold text-center">Add New Asset</h2>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-control">
           <label className="label">
             <span className="label-text">Product Name</span>
@@ -63,11 +95,23 @@ const AddAsset = () => {
         <div className="form-control">
           <input
             type="date"
-            placeholder="Date"
+            placeholder="date"
             name="date"
             className="input input-bordered"
             {...register("date")}
             defaultValue={currentDate}
+            hidden
+          />
+        </div>
+
+        <div className="form-control">
+          <input
+            type="email"
+            placeholder="email"
+            name="email"
+            className="input input-bordered"
+            {...register("email")}
+            defaultValue={user?.email}
             hidden
           />
         </div>
