@@ -22,7 +22,7 @@ const RegisterHr = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    // console.log(data)
+    console.log(data)
     createUser(data.email,data.password)
     .then(result=>{
         const loggedUser=result.user;
@@ -30,23 +30,27 @@ const RegisterHr = () => {
         updateUserProfile(data.name,data.photoURL)
         .then(()=>{
             console.log('user profile info updated');
-            navigate('/login');  //remove after post on database
+            // navigate('/login');  //remove after post on database
 
 // to do when create data base
 
-            // const userInfo={
-            //     name: data.name,
-            //     email: data.email,
+            const userInfo={
+                name: data.name,
+                companyName: data.companyName,
+                email: data.email,
+                logo: data.photoURL,
+                dob: data.dob,
+                role: data.role,
 
-            // }
-            // axiosPublic.post('/users', userInfo)
-            // .then(res=>{
-            //     if(res.data.insertedId){
-            //         console.log('user added to the database');
-            //         reset();
-            //         navigate('/');
-            //     }
-            // })
+            }
+            axiosPublic.post('/allUsers', userInfo)
+            .then(res=>{
+                if(res.data.insertedId){
+                    console.log('user added to the database');
+                    reset();
+                    navigate('/');
+                }
+            })
 
 
 
@@ -184,7 +188,7 @@ const RegisterHr = () => {
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  {...register("password")}
+                  // {...register("password")}
                   type="password"
                   placeholder="password"
                   className="input input-bordered"
@@ -199,6 +203,30 @@ const RegisterHr = () => {
                   </a>
                 </label>
               </div>
+
+
+{/* This portion is for role default value will be admin*/}
+
+              <div className="form-control">
+                <label className="label">
+                  {/* <span className="label-text">Role</span> */}
+                </label>
+                <input                
+                  type="text"
+                  placeholder="role"
+                  className="input input-bordered"
+                  name="role"
+                  defaultValue="admin"
+                  // required
+                  {...register("role")}
+                  // {...register("role", { required: true })}
+                  // disabled
+                  hidden
+                />
+                {errors.role && <span>This field is required</span>}
+              </div>
+
+{/* This portion is for role default value will be admin*/}
 
               <div className="form-control mt-6">
                 <input

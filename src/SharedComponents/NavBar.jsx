@@ -1,24 +1,74 @@
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const NavBar = () => {
+  const { user, logOut } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
+
+  const userEmail = user?.email;
+  console.log(userEmail);
+
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/allUsers/${userEmail}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setUsers(data);
+        setLoading(false);
+      });
+  }, [userEmail]);
+
+  const role = users?.[0]?.role;
+
+  console.log(role);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => console.log(error));
+  };
+
   const NavOptions = (
     <>
       <li>
         <Link to="/">Home</Link>
       </li>
-      <li>
-        <Link to="/registerEmp">Join as employee</Link>
-      </li>
-      <li>
-        <Link to="/registerHr">Join as HR manager</Link>
-      </li>
-      <li>
-        <Link to="/login">Login</Link>
-      </li>
-      <li>
-        <Link to="/profile">Profile</Link>
-      </li>
+      {user ? (
+        ""
+      ) : (
+        <div className="flex">
+          <li>
+            <Link to="/registerEmp">Join as employee</Link>
+          </li>
+          <li>
+            <Link to="/registerHr">Join as HR manager</Link>
+          </li>
+        </div>
+      )}
 
+      {user ? (
+        <li>
+          <Link onClick={handleLogOut} to="/login">
+            Logout
+          </Link>
+        </li>
+      ) : (
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+      )}
+
+      {user ? (
+        <div>
+          <li>
+            <Link to="/profile">Profile</Link>
+          </li>
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 
@@ -42,21 +92,33 @@ const NavBar = () => {
     </>
   );
 
-    const NavOptionsForHr = (
-      <>
-        <li><Link to='/hr/home'>Home</Link></li>
-        <li><Link to='/hr/list'>Asset List</Link></li>
-        <li><Link to='/hr/addAsset'>Add an asset</Link></li>
-        <li><Link to='/hr/allRequest'>All requests</Link></li>
-        <li><Link to='/hr/employeeList'>My employee list</Link></li>
-        <li><Link to='/hr/addEmployee'>Add an employee</Link></li>
-        {/* <li><Link to='/hr/profile'>Profile</Link></li> */}
-      </>
-    );
+  const NavOptionsForHr = (
+    <>
+      <li>
+        <Link to="/hr/home">Home</Link>
+      </li>
+      <li>
+        <Link to="/hr/list">Asset List</Link>
+      </li>
+      <li>
+        <Link to="/hr/addAsset">Add an asset</Link>
+      </li>
+      <li>
+        <Link to="/hr/allRequest">All requests</Link>
+      </li>
+      <li>
+        <Link to="/hr/employeeList">My employee list</Link>
+      </li>
+      <li>
+        <Link to="/hr/addEmployee">Add an employee</Link>
+      </li>
+      {/* <li><Link to='/hr/profile'>Profile</Link></li> */}
+    </>
+  );
 
   return (
     <>
-      <div className="max-w-7xl navbar z-10  bg-[#6292a6] text-white">
+      <div className="navbar z-10  bg-[#6292a6] text-white">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -90,17 +152,21 @@ const NavBar = () => {
           <ul className="menu menu-horizontal px-1">{NavOptions}</ul>
         </div>
 
-{/* Make Conditional later */}
+        {/* Make Conditional later */}
         <div className="mr-10 z-50">
           <div className="flex-none">
             <ul className="menu menu-horizontal px-1">
               <li>
-                <details>
-                  <summary>For General User</summary>
-                  <ul className="p-2  bg-[#6292a6] rounded-t-none">
-                    {NavOptionsForUser}
-                  </ul>
-                </details>
+                {user && role === "employee" ? (
+                  <details>
+                    <summary>Employee Routes</summary>
+                    <ul className="p-2  bg-[#6292a6] rounded-t-none">
+                      {NavOptionsForUser}
+                    </ul>
+                  </details>
+                ) : (
+                  ""
+                )}
               </li>
             </ul>
           </div>
@@ -110,21 +176,29 @@ const NavBar = () => {
           <div className="flex-none z-30">
             <ul className="menu menu-horizontal px-1">
               <li>
-                <details>
-                  <summary>For HR Only</summary>
-                  <ul className="p-2  bg-[#6292a6] rounded-t-none">
-                    {NavOptionsForHr}
-                  </ul>
-                </details>
+                {user && role === "admin" ? (
+                  <details>
+                    <summary>HR Routes</summary>
+                    <ul className="p-2  bg-[#6292a6] rounded-t-none">
+                      {NavOptionsForHr}
+                    </ul>
+                  </details>
+                ) : (
+                  ""
+                )}
               </li>
             </ul>
           </div>
         </div>
-{/* Make Conditional later */}
-
-
-        <div className="navbar-end">
-          <a className="btn bg-white px-10">Login</a>
+        <div>
+          
+            <img
+              className="w-10 rounded-full"
+              alt="Image"
+              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+            />
+          
+          <li>{user?.displayName}</li>
         </div>
       </div>
     </>

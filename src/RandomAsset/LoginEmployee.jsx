@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { FaGoogle } from "react-icons/fa";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+
+import {  NavLink, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import SocialLogin from "../SharedComponents/SocialLogin";
 

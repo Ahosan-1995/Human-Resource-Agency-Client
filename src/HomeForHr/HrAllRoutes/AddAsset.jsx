@@ -1,16 +1,25 @@
-
-
-
-
+import { useForm } from "react-hook-form";
 
 const AddAsset = () => {
+  const currentDate = new Date().toLocaleDateString();
+  console.log(currentDate);
 
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = () => {
     
+    
+  };
+
   return (
     <div>
       <h2 className="text-3xl font-bold text-center">Add New Asset</h2>
       <form>
-
         <div className="form-control">
           <label className="label">
             <span className="label-text">Product Name</span>
@@ -18,10 +27,11 @@ const AddAsset = () => {
           <input
             type="text"
             placeholder="Product Name"
-            name="name"
+            name="productName"
             className="input input-bordered"
-            required
+            {...register("productName", { required: true })}
           />
+          {errors.productName && <span>This field is required</span>}
         </div>
 
         <div className="form-control">
@@ -31,9 +41,9 @@ const AddAsset = () => {
           <input
             type="text"
             placeholder="Product Type"
-            name="type"
+            name="productType"
             className="input input-bordered"
-            required
+            {...register("productType", { required: true })}
           />
         </div>
 
@@ -46,10 +56,25 @@ const AddAsset = () => {
             placeholder="Product Quantity"
             name="quantity"
             className="input input-bordered"
-            required
+            {...register("quantity", { required: true })}
           />
         </div>
-        <button className=" text-white rounded-lg m-4 h-10 mx-auto w-full bg-[#6292a6]">Add</button>
+
+        <div className="form-control">
+          <input
+            type="date"
+            placeholder="Date"
+            name="date"
+            className="input input-bordered"
+            {...register("date")}
+            defaultValue={currentDate}
+            hidden
+          />
+        </div>
+
+        <button className=" text-white rounded-lg m-4 h-10 mx-auto w-full bg-[#6292a6]">
+          Add
+        </button>
       </form>
     </div>
   );
