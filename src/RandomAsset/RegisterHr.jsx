@@ -4,6 +4,7 @@ import SocialLogin from "../SharedComponents/SocialLogin";
 import UseAxiosPublic from "../Provider/UseAxiosPublic";
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 const RegisterHr = () => {
   
@@ -71,6 +72,9 @@ const RegisterHr = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Human Agency | Register</title>
+      </Helmet>
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content w-3/4 flex-col md:flex-row">
           <div className="text-center lg:text-left">

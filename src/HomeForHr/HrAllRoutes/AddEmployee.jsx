@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import { useLoaderData } from "react-router-dom";
+// import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from 'sweetalert2'
 import OnlyUsersReload from "../../Hooks/OnlyUsersReload";
+import { Helmet } from "react-helmet-async";
 
 
 
@@ -53,6 +54,9 @@ const AddEmployee = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Human Agency | HR-Add-Employee</title>
+      </Helmet>
       <h2>This is add employee page</h2>
       <div>
         <table className="table table-xs">

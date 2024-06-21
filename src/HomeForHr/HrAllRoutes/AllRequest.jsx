@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
 import menus from '../../../public/menu.json'
+import { Helmet } from 'react-helmet-async';
 
 
 
@@ -37,6 +38,9 @@ const AllRequest = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Human Agency | HR-Request</title>
+      </Helmet>
       <h2 className="text-3xl font-bold text-center">All request</h2>
       <div className="overflow-x-auto">
         <table className="table table-xs">

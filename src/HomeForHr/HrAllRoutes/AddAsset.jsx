@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Provider/AuthProvider";
 import UseAxiosSecure from "../../Provider/UseAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 
 
@@ -50,6 +51,9 @@ const AddAsset = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Human Agency | HR-Add-Asset</title>
+      </Helmet>
       <h2 className="text-3xl font-bold text-center">Add New Asset</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-control">

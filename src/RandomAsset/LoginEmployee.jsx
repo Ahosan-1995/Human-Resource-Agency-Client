@@ -3,6 +3,7 @@ import { useContext } from "react";
 import {  NavLink, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import SocialLogin from "../SharedComponents/SocialLogin";
+import { Helmet } from "react-helmet-async";
 
 const LoginEmployee = () => {
   const navigate = useNavigate();
@@ -31,6 +32,9 @@ const LoginEmployee = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Human Agency | login</title>
+      </Helmet>
       <div>
         <div className="hero min-h-screen">
           <div className="hero-content flex-col lg:flex-row-reverse">

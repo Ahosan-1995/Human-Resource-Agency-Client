@@ -1,6 +1,11 @@
+import { Helmet } from "react-helmet-async";
+
 const MyTeam = () => {
   return (
     <div>
+      <Helmet>
+        <title>Human Agency | Employee-Team</title>
+      </Helmet>
       <h2 className="text-3xl font-bold text-center">
         This is employee my team page
       </h2>

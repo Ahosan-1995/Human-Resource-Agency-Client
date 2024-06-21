@@ -2,6 +2,7 @@ import { useContext } from "react";
 import OnlyUsersReload from "../../Hooks/OnlyUsersReload";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from 'sweetalert2'
+import { Helmet } from "react-helmet-async";
 
 const MyEmployeeList = () => {
   const [allUsers, loading, refetch] = OnlyUsersReload();
@@ -42,6 +43,9 @@ const MyEmployeeList = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Human Agency | HR-Employee</title>
+      </Helmet>
       <h2 className="text-3xl font-bold text-center">My employee list</h2>
       <div className="overflow-x-auto">
         <table className="table table-xs">
