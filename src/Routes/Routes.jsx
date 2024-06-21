@@ -77,7 +77,8 @@ export const router = createBrowserRouter([
        },
        {
         path:'addEmployee',
-        element:<PrivateRoute><AddEmployee></AddEmployee></PrivateRoute>
+        element:<PrivateRoute><AddEmployee></AddEmployee></PrivateRoute>,
+        loader: ()=>fetch('http://localhost:5000/allUsers')
        },
        {
         path:'profile',

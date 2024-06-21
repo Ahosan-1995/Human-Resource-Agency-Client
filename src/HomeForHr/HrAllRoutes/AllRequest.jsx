@@ -12,7 +12,7 @@ const AllRequest = () => {
     const firstIndex = lastIndex - recordsPerPage;
     const records = menus.slice(firstIndex,lastIndex);
     const npage=Math.ceil(menus.length/recordsPerPage);
-    const numbers = [...Array(npage+1).keys()].slice(1)
+    const numbers = [...Array(npage+1).keys()].slice(1);
 
 
     const prePage=()=>{

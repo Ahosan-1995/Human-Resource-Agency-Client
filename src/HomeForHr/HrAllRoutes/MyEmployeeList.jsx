@@ -1,7 +1,48 @@
+import { useContext } from "react";
+import OnlyUsersReload from "../../Hooks/OnlyUsersReload";
+import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from 'sweetalert2'
+
 const MyEmployeeList = () => {
+  const [allUsers, loading, refetch] = OnlyUsersReload();
+  console.log(allUsers);
+  const { user } = useContext(AuthContext);
+
+  const handleRemove = (email) => {
+    const approveStatus = "pending";
+    const associatedEmail = "";
+
+    const allData = {
+      approveStatus,
+      associatedEmail,
+    };
+    console.log(allData);
+    fetch(`http://localhost:5000/allUsers/${email}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(allData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data);
+
+        if (data.modifiedCount > 0) {
+          refetch();
+          Swal.fire({
+            title: "Success",
+            text: "Data Information Updated Successfully",
+            icon: "Success",
+            confirmButtonText: "Cool",
+          });
+        }
+      });
+  };
+
   return (
     <div>
-      <h2 className="text-3xl font-bold text-center">Myy employee list</h2>
+      <h2 className="text-3xl font-bold text-center">My employee list</h2>
       <div className="overflow-x-auto">
         <table className="table table-xs">
           <thead>
@@ -14,13 +55,33 @@ const MyEmployeeList = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th>Sl</th>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Type</th>
-              <th><button className="btn">Remove</button></th>
-            </tr>
+            {allUsers.map((myUser, index) =>
+              myUser.role === "employee" &&
+              myUser.associatedEmail === `${user.email}` ? (
+                <tr key={myUser._id}>
+                  <th>{index + 1}</th>
+                  <th>
+                    <img
+                      className="w-10 rounded-full"
+                      alt="Img"
+                      src="https://i.ibb.co/ygVzCDL/128-1280406-view-user-icon-png-user-circle-icon-png.png"
+                    />
+                  </th>
+                  <th>{myUser.name}</th>
+                  <th>{myUser.role}</th>
+                  <th>
+                    <button
+                      onClick={() => handleRemove(myUser.email)}
+                      className="btn"
+                    >
+                      Remove
+                    </button>
+                  </th>
+                </tr>
+              ) : (
+                ""
+              )
+            )}
           </tbody>
         </table>
       </div>
