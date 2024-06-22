@@ -1,13 +1,45 @@
+import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
+import { AuthContext } from "../Provider/AuthProvider";
+import Swal from 'sweetalert2'
+import OnlyUsersReload from "../Hooks/OnlyUsersReload";
 
 
 
 
 
 const ProfileHR_Employee = () => {
+  const { user } = useContext(AuthContext);
+  const [allUsers, loading, refetch] = OnlyUsersReload();
 
     const updateProfile=(e)=>{
-
+      e.preventDefault();
+      const name=e.target.name.value;
+      console.log(name);
+      const allData={
+        name,
+      }
+      fetch(`http://localhost:5000/allUsers/${user.email}`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(allData),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // console.log(data);
+  
+          if (data.modifiedCount > 0) {
+            refetch();
+            Swal.fire({
+              title: "Success",
+              text: "Data Information Updated Successfully",
+              icon: "Success",
+              confirmButtonText: "Cool",
+            });
+          }
+        });
     }
 
   return (
@@ -26,6 +58,7 @@ const ProfileHR_Employee = () => {
             placeholder="Name"
             name="name"
             className="input input-bordered"
+            defaultValue={user.displayName}
             required
           />
         </div>
@@ -38,6 +71,7 @@ const ProfileHR_Employee = () => {
             placeholder="Email"
             name="email"
             className="input input-bordered"
+            defaultValue={user.email}
             readOnly
           />
         </div>
