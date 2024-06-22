@@ -1,13 +1,47 @@
+import { useContext, useEffect, useState } from "react";
+import OnlyUsersReload from "../Hooks/OnlyUsersReload";
+import { AuthContext } from "../Provider/AuthProvider";
 
 
 
 const Footer = () => {
-    return (
-      <div>
-        <footer className="p-10 bg-[#6292a6] text-neutral-content flex flex-col space-y-6">
-          <div className="flex flex-row justify-between">
+  const [allUsers, , refetch] = OnlyUsersReload();
+
+  const [filteredUsers, setFilteredUsers] = useState();
+
+  const [logoForUser, setLogoForUser] = useState();
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (allUsers.length > 0) {
+      const filtered = allUsers.filter((user1) => user1.email === user.email);
+      setFilteredUsers(filtered);
+    }
+  }, [allUsers, user]);
+
+  // console.log(filteredUsers);
+
+  // const filteredUserAssociatedEmail=filteredUsers[0]?.associatedEmail;
+  // console.log(filteredUserAssociatedEmail);
+
+  useEffect(() => {
+    const logoForUser = filteredUsers?.[0].logo;
+
+    setLogoForUser(logoForUser);
+  }, [filteredUsers]);
+
+  // console.log(logoForUser);
+
+  return (
+    <div>
+      <footer className="p-10 bg-[#6292a6] text-neutral-content flex flex-col space-y-6">
+        <div className="flex flex-row justify-between">
           <div>
-           <img className="mb-5" src="https://i.ibb.co/5FYfLgw/Logo.png" alt="" />
+            <img
+              className="mb-5"
+              src={logoForUser}
+              alt="logo"
+            />
             <p>
               HR human agency.
               <br />
@@ -52,14 +86,15 @@ const Footer = () => {
               </a>
             </div>
           </nav>
-          </div>
-          <div className=" mx-auto">
-            <p className="text-center">Copyright © 2024 - All right reserved by HR human agency</p>
-          </div>
-        </footer>
-      </div>
-    );
-  };
-  
-  export default Footer;
-  
+        </div>
+        <div className=" mx-auto">
+          <p className="text-center">
+            Copyright © 2024 - All right reserved by HR human agency
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default Footer;

@@ -1,10 +1,52 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
+import OnlyUsersReload from "../Hooks/OnlyUsersReload";
 
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
+  const [allUsers, , refetch] = OnlyUsersReload();
+
+
+
+
+  const [filteredUsers,setFilteredUsers]=useState();
+
+  const [logoForUser,setLogoForUser]=useState();
+
+  useEffect(() => {
+    if (allUsers.length > 0) {
+      const filtered = allUsers.filter(user1 => user1.email === user.email);
+      setFilteredUsers(filtered);
+    }
+  }, [allUsers,user]);
+
+  // console.log(filteredUsers);
+
+  // const filteredUserAssociatedEmail=filteredUsers[0]?.associatedEmail;
+  // console.log(filteredUserAssociatedEmail);
+
+  useEffect(() => {
+    const logoForUser = filteredUsers?.[0].logo;
+
+    setLogoForUser(logoForUser);
+  }, [filteredUsers]);
+
+
+  // console.log(logoForUser);
+
+
+
+
+
+
+
+
+
+
+
+
 
   const userEmail = user?.email;
   console.log(userEmail);
@@ -32,9 +74,16 @@ const NavBar = () => {
 
   const NavOptions = (
     <>
-      <li>
-        <Link to="/">Home</Link>
-      </li>
+      {user ? (
+        ""
+      ) : (
+        <div className="flex">
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+        </div>
+      )}
+
       {user ? (
         ""
       ) : (
@@ -145,7 +194,7 @@ const NavBar = () => {
             </ul>
           </div>
           <a className="btn btn-ghost text-xl">
-            <img src="https://i.ibb.co/5FYfLgw/Logo.png" alt="Logo" />
+            <img src={logoForUser} alt="Logo" />
           </a>
         </div>
         <div className="navbar-center hidden lg:flex">
@@ -191,13 +240,12 @@ const NavBar = () => {
           </div>
         </div>
         <div>
-          
-            <img
-              className="w-10 rounded-full"
-              alt="Image"
-              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-            />
-          
+          <img
+            className="w-10 rounded-full"
+            alt="Image"
+            src="https://i.ibb.co/ygVzCDL/128-1280406-view-user-icon-png-user-circle-icon-png.png"
+          />
+
           <li>{user?.displayName}</li>
         </div>
       </div>

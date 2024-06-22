@@ -12,10 +12,12 @@ const MyEmployeeList = () => {
   const handleRemove = (email) => {
     const approveStatus = "pending";
     const associatedEmail = "";
+    const logo="";
 
     const allData = {
       approveStatus,
       associatedEmail,
+      logo,
     };
     console.log(allData);
     fetch(`http://localhost:5000/allUsers/${email}`, {

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 // import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from 'sweetalert2'
@@ -12,19 +12,46 @@ const AddEmployee = () => {
   const { user } = useContext(AuthContext);
   const [allUsers, loading, refetch] = OnlyUsersReload();
 
+  const [filteredUsers,setFilteredUsers]=useState();
+
+  const [logoForUser,setLogoForUser]=useState();
+
+  useEffect(() => {
+    if (allUsers.length > 0) {
+      const filtered = allUsers.filter(user1 => user1.email === user.email);
+      setFilteredUsers(filtered);
+    }
+  }, [allUsers,user]);
+
+  // console.log(filteredUsers);
+
+  // const filteredUserAssociatedEmail=filteredUsers[0]?.associatedEmail;
+  // console.log(filteredUserAssociatedEmail);
+
+  useEffect(() => {
+    const logoForUser = filteredUsers?.[0].logo;
+
+    setLogoForUser(logoForUser);
+  }, [filteredUsers]);
+
+
+  // console.log(logoForUser);
 
 
 
-//   const {} = allUsers;
-//   console.log(allUsers);
 
   const handleSubmit = (email) => {
     const approveStatus = "approved";
     const associatedEmail = `${user.email}`;
+    const logo = logoForUser;
+
+    console.log(logo);
+
 
     const allData = {
       approveStatus,
       associatedEmail,
+      logo,
     };
 
     console.log(allData);
