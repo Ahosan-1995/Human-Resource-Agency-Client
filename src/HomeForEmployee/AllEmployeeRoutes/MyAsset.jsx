@@ -1,13 +1,13 @@
 import { Helmet } from "react-helmet-async";
-import OnlyAssetsReload from "../../Hooks/OnlyAssetsReload";
 import OnlyUsersReload from "../../Hooks/OnlyUsersReload";
+import OnlyRequestedAsset from "../../Hooks/OnlyRequestedAsset";
 
 const MyAsset = () => {
-  const [allAssets, loading, refetch] = OnlyAssetsReload();
-  console.log(allAssets);
+  const [requestedAssets, loading, refetch] = OnlyRequestedAsset();
+  console.log(requestedAssets);
 
   const [allUsers] = OnlyUsersReload();
-  console.log(allUsers);
+  // console.log(allUsers);
 
   return (
     <div>
@@ -38,17 +38,27 @@ const MyAsset = () => {
               </tr>
             </thead>
             <tbody>
-              {allAssets.map((asset,index) => (
+              {requestedAssets.map((asset,index) => (
                 <tr key={asset._id}>
                   <th>{index+1}</th>
                   <th>{asset.productName}</th>
                   <th>{asset.productType}</th>
-                  <th>{asset.date}</th>
-                  <th>Request status</th>
-                  <th>Approval date</th>
+                  <th>{asset.requestDate}</th>
+                  <th>{asset.status==='pending'?'': asset.approveDate}</th>
+                  <th>{asset.status}</th>
                   <th>
-                    <button className="btn">Remove</button>
+                    {
+                      asset.approveDate?<button disabled className="btn">Remove</button>:<button className="btn">Remove</button>
+                    }
                   </th>
+                  {
+                    asset.status==='approved'?
+                    <th>
+                    Print
+                  </th>
+                  :
+                  ''
+                  }
                 </tr>
               ))}
             </tbody>

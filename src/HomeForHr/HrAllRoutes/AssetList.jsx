@@ -72,44 +72,41 @@ const AssetList = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = UseAxiosSecure();
   const { register, handleSubmit, reset } = useForm();
-  const currentDate = new Date().toLocaleDateString();
 
   const handleUpdate = (data) => {
-      
-      const insertedQunatity = parseInt(data.quantity2,10);
-      const note = data.input;
-      const quantityOld=parseInt(selectedAsset.quantity, 10);
-      const quantity= insertedQunatity+quantityOld;
-      // console.log(data._id)
+    const insertedQunatity = parseInt(data.quantity2, 10);
+    const note = data.input;
+    const quantityOld = parseInt(selectedAsset.quantity, 10);
+    const quantity = insertedQunatity + quantityOld;
+    // console.log(data._id)
 
-      const allData = {
-        quantity,
-      };
-  
-      console.log(allData);
-      fetch(`http://localhost:5000/assets/${selectedAsset._id}`, {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(allData),
-      })
-      .then(res=>res.json())
-          .then(data=>{
-              // console.log(data);
-              
-              if(data.modifiedCount>0){
-                  // toast('Data added successfully to the database');
-                  refetch();
-                  Swal.fire({
-                      title: 'Success',
-                      text: 'Data Information Updated Successfully',
-                      icon: 'Success',
-                      confirmButtonText: 'Cool'
-                    })
-              }
-          })
-      
+    const allData = {
+      quantity,
+    };
+
+    console.log(allData);
+    fetch(`http://localhost:5000/assets/${selectedAsset._id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(allData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data);
+
+        if (data.modifiedCount > 0) {
+          // toast('Data added successfully to the database');
+          refetch();
+          Swal.fire({
+            title: "Success",
+            text: "Data Information Updated Successfully",
+            icon: "Success",
+            confirmButtonText: "Cool",
+          });
+        }
+      });
   };
 
   const handleDelete = (id) => {
@@ -184,14 +181,16 @@ const AssetList = () => {
                   <th>{asset.date}</th>
                   <th className="flex gap-2">
                     <div>
-                      
                       <div>
-                      <button onClick={() => {
-                      setSelectedAsset(asset);
-                      openModal();
-                    }} className="btn">
-                      Update
-                    </button>
+                        <button
+                          onClick={() => {
+                            setSelectedAsset(asset);
+                            openModal();
+                          }}
+                          className="btn"
+                        >
+                          Update
+                        </button>
                         <Modal
                           isOpen={modalIsOpen}
                           onAfterOpen={afterOpenModal}
@@ -199,17 +198,21 @@ const AssetList = () => {
                           style={customStyles}
                           contentLabel="Example Modal"
                         >
-                          <h2 ref={(_subtitle) => (subtitle = _subtitle)}>
-                            Update Product Quantity
-                          </h2>
-                          <button className="btn" onClick={closeModal}>
-                            close
-                          </button>
+                          <div className="flex justify-between">
+                            <h2 ref={(_subtitle) => (subtitle = _subtitle)}>
+                              Update Product Quantity
+                            </h2>
+                            <button className="w-12 rounded-md  bg-slate-300" onClick={closeModal}>
+                              close
+                            </button>
+                          </div>
 
                           <form onSubmit={handleSubmit(handleUpdate)}>
                             <div className="form-control">
                               <label className="label">
-                                <span className="label-text">Quantity:{selectedAsset?.quantity}</span>
+                                <span className="label-text">
+                                  Quantity:{selectedAsset?.quantity}
+                                </span>
                               </label>
                               <input
                                 type="number"
@@ -220,10 +223,11 @@ const AssetList = () => {
                                 {...register("quantity2", { required: true })}
                               />
                             </div>
-                            
-                            <button type="submit" className="btn">Update</button>
+
+                            <button type="submit" className="btn">
+                              Update
+                            </button>
                           </form>
-                          
                         </Modal>
                       </div>
                     </div>
@@ -247,11 +251,6 @@ const AssetList = () => {
 };
 
 export default AssetList;
-
-
-
-
-
 
 // import { useContext, useState } from "react";
 // import Select from "react-dropdown-select";
@@ -330,7 +329,7 @@ export default AssetList;
 //   const currentDate = new Date().toLocaleDateString();
 
 //   const handleUpdate = (data) => {
-      
+
 //       const insertedQunatity = parseInt(data.quantity2,10);
 //       const note = data.input;
 //       const quantityOld=parseInt(selectedAsset.quantity, 10);
@@ -342,7 +341,7 @@ export default AssetList;
 //         note,
 //         requestDate:currentDate,
 //       };
-  
+
 //       console.log(allData);
 //       fetch(`http://localhost:5000/assets/${selectedAsset._id}`, {
 //         method: "PUT",
@@ -354,7 +353,7 @@ export default AssetList;
 //       .then(res=>res.json())
 //           .then(data=>{
 //               // console.log(data);
-              
+
 //               if(data.modifiedCount>0){
 //                   // toast('Data added successfully to the database');
 //                   refetch();
@@ -366,7 +365,7 @@ export default AssetList;
 //                     })
 //               }
 //           })
-      
+
 //   };
 
 //   const handleDelete = (id) => {
@@ -441,7 +440,7 @@ export default AssetList;
 //                   <th>{asset.date}</th>
 //                   <th className="flex gap-2">
 //                     <div>
-                      
+
 //                       <div>
 //                       <button onClick={() => {
 //                       setSelectedAsset(asset);
@@ -492,7 +491,7 @@ export default AssetList;
 //                             </div>
 //                             <button type="submit" className="btn">Update</button>
 //                           </form>
-                          
+
 //                         </Modal>
 //                       </div>
 //                     </div>
@@ -516,6 +515,3 @@ export default AssetList;
 // };
 
 // export default AssetList;
-
-
-

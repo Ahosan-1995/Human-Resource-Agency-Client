@@ -1,17 +1,28 @@
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import menus from '../../../public/menu.json'
 import { Helmet } from 'react-helmet-async';
+import OnlyRequestedAsset from '../../Hooks/OnlyRequestedAsset';
+import Swal from "sweetalert2";
+import UseAxiosSecure from '../../Provider/UseAxiosSecure';
+import { AuthContext } from '../../Provider/AuthProvider';
 
 
 
 const AllRequest = () => {
 
+
+  const [requestedAssets, loading, refetch] = OnlyRequestedAsset();
+  console.log(requestedAssets);
+  const axiosSecure = UseAxiosSecure();
+  const currentDate = new Date().toLocaleDateString();
+  const { user } = useContext(AuthContext);
+
     const [currentPage,setCurrentPage]=useState(1);
     const recordsPerPage=10;
     const lastIndex = currentPage * recordsPerPage;
     const firstIndex = lastIndex - recordsPerPage;
-    const records = menus.slice(firstIndex,lastIndex);
+    const records = requestedAssets.slice(firstIndex,lastIndex);
     const npage=Math.ceil(menus.length/recordsPerPage);
     const numbers = [...Array(npage+1).keys()].slice(1);
 
@@ -32,7 +43,65 @@ const AllRequest = () => {
         }
     }
 
+const handleReject=(id)=>{
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      axiosSecure.delete(`/requestedAsset/${id}`).then((res) => {
+        console.log(res);
+        // if (res.data.deletedCount>0) {
+        refetch();
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+        // }
+      });
+    }
+  });
+}
 
+
+
+const handleApprove=(id)=>{
+  const allData = {
+    status:'approved',
+    approveDate: currentDate,
+    approverEmail: user.email,
+  };
+
+  console.log(allData);
+  fetch(`http://localhost:5000/requestedAsset/${id}`, {
+    method: "PUT",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(allData),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      // console.log(data);
+
+      if (data.modifiedCount > 0) {
+        // toast('Data added successfully to the database');
+        refetch();
+        Swal.fire({
+          title: "Success",
+          text: "Data Information Updated Successfully",
+          icon: "Success",
+          confirmButtonText: "Cool",
+        });
+      }
+    });
+}
 
 
 
@@ -53,22 +122,26 @@ const AllRequest = () => {
               <th>Name of requester</th>
               <th>Request date</th>
               <th>Note</th>
-              <th>Approve</th>
-              <th>Reject</th>
+              <th>Status</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {
-                records.map((menu,index)=><tr key={menu._id}>
+                records.map((request,index)=><tr key={request._id}>
                     <th>{index+1}</th>
-                    <th>{menu.name}</th>
-                    <th>{menu.category}</th>
-                    <th>{menu.price}</th>
-                    <th>Name of requester</th>
-                    <th>Request date</th>
-                    <th>Note</th>
-                    <th>Approve</th>
-                    <th>Reject</th>
+                    <th>{request.productName}</th>
+                    <th>{request.productType}</th>
+                    <th>{request.requesterEmail
+                    }</th>
+                    <th>{request.requesterName}</th>
+                    <th>{request.requestDate}</th>
+                    <th>{request.inputNote}</th>
+                    <th>{request.status}</th>
+                    <th className='flex gap-2'>
+                      <button onClick={()=>handleApprove(request._id)} className='btn'>Approve</button>
+                      <button onClick={()=>handleReject(request._id)} className='btn'>Reject</button>
+                    </th>
                   </tr>)
             }
           </tbody>
