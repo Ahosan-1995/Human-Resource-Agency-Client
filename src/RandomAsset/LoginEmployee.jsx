@@ -1,9 +1,10 @@
 import { useContext } from "react";
 
-import {  NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import SocialLogin from "../SharedComponents/SocialLogin";
 import { Helmet } from "react-helmet-async";
+import Swal from "sweetalert2";
 
 const LoginEmployee = () => {
   const navigate = useNavigate();
@@ -13,22 +14,24 @@ const LoginEmployee = () => {
 
   const { signIn } = useContext(AuthContext);
 
-
   const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
 
     signIn(email, password).then((result) => {
       const user = result.user;
-      console.log(user);
+      // console.log(user);
+      Swal.fire({
+        title: "Success",
+        text: "logged in Successfully",
+        icon: "Success",
+        confirmButtonText: "Cool",
+      });
       navigate(from, { replace: true });
     });
   };
-
-
 
   return (
     <div>
@@ -46,9 +49,12 @@ const LoginEmployee = () => {
                   </h2>
 
                   <p className="max-w-xl mt-3 text-white">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. In
-                    autem ipsa, nulla laboriosam dolores, repellendus
-                    perferendis libero suscipit nam temporibus molestiae
+                    Human resource management, or HRM, involves coordinating,
+                    managing, and allocating human capital, or employees, in
+                    ways that move an organization's goals forward. HRM focuses
+                    on investing in employees, ensuring their safety, and
+                    managing all aspects of staffing from hiring to compensation
+                    and development.
                   </p>
                 </div>
               </div>
@@ -85,12 +91,9 @@ const LoginEmployee = () => {
                     Login
                   </button>
 
-            
                   <div className="flex">
-                     <SocialLogin></SocialLogin>
-                    </div>
-               
-        
+                    <SocialLogin></SocialLogin>
+                  </div>
 
                   <div className="text-center mb-5 mt-5 flex flex-col">
                     <p>Do not have an account please </p>

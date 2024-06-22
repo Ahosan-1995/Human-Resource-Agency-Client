@@ -18,8 +18,8 @@ const MyExtraSection = () => {
   };
 
   return (
-    <div>
-        <h1>My Calendar</h1>
+    <div className="mb-20">
+        <h1 className="text-center">My Calendar</h1>
     <div>
         <Calendar
           onChange={handleChange}

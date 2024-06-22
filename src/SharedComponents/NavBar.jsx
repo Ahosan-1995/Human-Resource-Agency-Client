@@ -1,40 +1,40 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
-import OnlyUsersReload from "../Hooks/OnlyUsersReload";
+
 
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
+
   const [loading, setLoading] = useState(true);
-  const [allUsers, , refetch] = OnlyUsersReload();
+  // const [allUsers, , refetch] = OnlyUsersReload();
 
 
 
+  // const [filteredUsers,setFilteredUsers]=useState();
 
-  const [filteredUsers,setFilteredUsers]=useState();
+  // const [logoForUser,setLogoForUser]=useState();
 
-  const [logoForUser,setLogoForUser]=useState();
+  // useEffect(() => {
+  //   if (allUsers?.length > 0) {
+  //     const filtered = allUsers?.filter(user1 => user1.email === user.email);
+  //     setFilteredUsers(filtered);
+  //   }
+  // }, [allUsers,user]);
 
-  useEffect(() => {
-    if (allUsers.length > 0) {
-      const filtered = allUsers.filter(user1 => user1.email === user.email);
-      setFilteredUsers(filtered);
-    }
-  }, [allUsers,user]);
+  // // console.log(filteredUsers);
 
-  // console.log(filteredUsers);
+  // // const filteredUserAssociatedEmail=filteredUsers[0]?.associatedEmail;
+  // // console.log(filteredUserAssociatedEmail);
 
-  // const filteredUserAssociatedEmail=filteredUsers[0]?.associatedEmail;
-  // console.log(filteredUserAssociatedEmail);
+  // useEffect(() => {
+  //   const logoForUser = filteredUsers?.[0].logo;
 
-  useEffect(() => {
-    const logoForUser = filteredUsers?.[0].logo;
-
-    setLogoForUser(logoForUser);
-  }, [filteredUsers]);
+  //   setLogoForUser(logoForUser);
+  // }, [filteredUsers]);
 
 
-  // console.log(logoForUser);
+  // // console.log(logoForUser);
 
 
 
@@ -49,12 +49,12 @@ const NavBar = () => {
 
 
   const userEmail = user?.email;
-  console.log(userEmail);
+  // console.log(userEmail);
 
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/allUsers/${userEmail}`)
+    fetch(`https://assignment12-server-side-smoky.vercel.app/allUsers/${userEmail}`)
       .then((res) => res.json())
       .then((data) => {
         setUsers(data);
@@ -64,7 +64,7 @@ const NavBar = () => {
 
   const role = users?.[0]?.role;
 
-  console.log(role);
+  // console.log(role);
 
   const handleLogOut = () => {
     logOut()
@@ -194,7 +194,7 @@ const NavBar = () => {
             </ul>
           </div>
           <a className="btn btn-ghost text-xl">
-            <img src={logoForUser} alt="Logo" />
+            <img src="https://i.ibb.co/5FYfLgw/Logo.png" alt="Logo" />
           </a>
         </div>
         <div className="navbar-center hidden lg:flex">

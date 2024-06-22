@@ -11,11 +11,11 @@ const Slider = () => {
       <Carousel>
         <div>
           <img src='https://i.ibb.co/b2j4Qwn/Office-discussion.jpg' />
-          <Link><button className="legend">Join as HR manager</button></Link>
+          <Link to="/registerHr"><button className="legend">Join as HR manager</button></Link>
         </div>
         <div>
           <img src='https://i.ibb.co/Nm2mf31/Office-Room.jpg' />
-          <Link><button className="legend">Join as employee</button></Link>
+          <Link to="/registerEmp"><button className="legend">Join as employee</button></Link>
         </div>
       </Carousel>
     </div>

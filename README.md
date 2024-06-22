@@ -1,8 +1,23 @@
-# React + Vite
+# Human Agency
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+admin Email:ahosanhabib@gmail.com
+password: ahosan123
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+- [Live Link](https://project-12-98879.web.app)
+
+- [Client Repo:](https://github.com/programming-hero-web-course1/b9a12-client-side-Ahosan-1995)
+
+Features of this site:
+- Efficient Data Loading
+- FFull Navigation Control
+- Structured Content Placement
+- Login Access
+- Enhanced User Experience
+- Responsive Design
+- Interactive Interface
+- Reduced Load Times
+- Real-Time Updates
+- Optimized Performance
+- Secure Access

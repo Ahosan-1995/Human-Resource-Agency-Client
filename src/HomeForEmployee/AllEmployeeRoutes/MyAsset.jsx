@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 
 const MyAsset = () => {
   const [requestedAssets, loading, refetch] = OnlyRequestedAsset();
-  console.log(requestedAssets);
+  // console.log(requestedAssets);
   const { register, handleSubmit, reset } = useForm();
 
   const [allUsers] = OnlyUsersReload();

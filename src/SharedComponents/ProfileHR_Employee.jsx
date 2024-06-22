@@ -15,11 +15,11 @@ const ProfileHR_Employee = () => {
     const updateProfile=(e)=>{
       e.preventDefault();
       const name=e.target.name.value;
-      console.log(name);
+      // console.log(name);
       const allData={
         name,
       }
-      fetch(`http://localhost:5000/allUsers/${user.email}`, {
+      fetch(`https://assignment12-server-side-smoky.vercel.app/allUsers/${user.email}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",

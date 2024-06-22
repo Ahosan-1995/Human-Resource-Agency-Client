@@ -6,7 +6,7 @@ import { Helmet } from "react-helmet-async";
 
 const MyEmployeeList = () => {
   const [allUsers, loading, refetch] = OnlyUsersReload();
-  console.log(allUsers);
+  // console.log(allUsers);
   const { user } = useContext(AuthContext);
 
   const handleRemove = (email) => {
@@ -19,8 +19,8 @@ const MyEmployeeList = () => {
       associatedEmail,
       logo,
     };
-    console.log(allData);
-    fetch(`http://localhost:5000/allUsers/${email}`, {
+    // console.log(allData);
+    fetch(`https://assignment12-server-side-smoky.vercel.app/allUsers/${email}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

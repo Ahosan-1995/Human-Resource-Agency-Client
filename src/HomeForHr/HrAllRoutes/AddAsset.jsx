@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Provider/AuthProvider";
 import UseAxiosSecure from "../../Provider/UseAxiosSecure";
 import { Helmet } from "react-helmet-async";
+import Swal from "sweetalert2";
 
 
 
@@ -17,7 +18,7 @@ const AddAsset = () => {
   const axiosSecure=UseAxiosSecure();
 
 
-  console.log(currentDate);
+  // console.log(currentDate);
 
   const {
     register,
@@ -39,7 +40,13 @@ const AddAsset = () => {
             axiosSecure.post('/assets', assets)
             .then(res=>{
                 if(res.data.insertedId){
-                    console.log('user added to the database');
+                    // console.log('user added to the database');
+                    Swal.fire({
+                      title: "Success",
+                      text: "Asset added Successfully",
+                      icon: "Success",
+                      confirmButtonText: "Cool",
+                    });
                     reset();
                 }
             })

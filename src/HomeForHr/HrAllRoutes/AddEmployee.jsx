@@ -45,7 +45,7 @@ const AddEmployee = () => {
     const associatedEmail = `${user.email}`;
     const logo = logoForUser;
 
-    console.log(logo);
+    // console.log(logo);
 
 
     const allData = {
@@ -54,8 +54,8 @@ const AddEmployee = () => {
       logo,
     };
 
-    console.log(allData);
-    fetch(`http://localhost:5000/allUsers/${email}`, {
+    // console.log(allData);
+    fetch(`https://assignment12-server-side-smoky.vercel.app/allUsers/${email}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

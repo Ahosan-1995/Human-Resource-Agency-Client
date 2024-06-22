@@ -1,26 +1,31 @@
+import OnlyRequestedAsset from "../Hooks/OnlyRequestedAsset";
+
 const HrTopMostRequest = () => {
+  const [requestedAssets, loading, refetch] = OnlyRequestedAsset();
   return (
     <div>
         <h1 className="text-center font-bold text-3xl mb-5 mt-10">Top most Request</h1>
       <div className="overflow-x-auto">
-        <table className="table">
-          {/* head */}
+      <table className="table">
           <thead>
             <tr>
-              <th>Sl</th>
               <th>Name</th>
-              <th>Type</th>
-              <th>Request Count</th>
+              <th>Email</th>
+              <th>Request Status</th>
             </tr>
           </thead>
           <tbody>
-            {/* row 1 */}
-            <tr>
-              <th>1</th>
-              <td>Cy Ganderton</td>
-              <td>Quality Control Specialist</td>
-              <td>Blue</td>
-            </tr>
+
+            {requestedAssets
+              .filter((request) => request.status === "pending")
+              .slice(0, 3)
+              .map((request) => (
+                <tr key={request._id}>
+                  <td>{request.requesterName}</td>
+                  <td>{request.requesterEmail}</td>
+                  <td>{request.status}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

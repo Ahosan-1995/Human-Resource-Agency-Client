@@ -5,6 +5,7 @@ import UseAxiosPublic from "../Provider/UseAxiosPublic";
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { Helmet } from "react-helmet-async";
+import Swal from "sweetalert2";
 
 const RegisterEmployee = () => {
   const axiosPublic = UseAxiosPublic();
@@ -21,13 +22,13 @@ const RegisterEmployee = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     createUser(data.email, data.password).then((result) => {
       const loggedUser = result.user;
       // console.log(loggedUser);
       updateUserProfile(data.name, data.photoURL)
         .then(() => {
-          console.log("user profile info updated");
+          // console.log("user profile info updated");
           // navigate('/login');  //remove after post on database
 
           // to do when create data base
@@ -43,7 +44,13 @@ const RegisterEmployee = () => {
           };
           axiosPublic.post("/allUsers", userInfo).then((res) => {
             if (res.data.insertedId) {
-              console.log("user added to the database");
+              // console.log("user added to the database");
+              Swal.fire({
+                title: "Success",
+                text: "User added Successfully",
+                icon: "Success",
+                confirmButtonText: "Cool",
+              });
               reset();
               navigate("/");
             }
@@ -65,82 +72,76 @@ const RegisterEmployee = () => {
           <div className="text-center lg:text-left">
             <h1 className="text-5xl font-bold">Sign up now!</h1>
             <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
+              Human resource management, or HRM, involves coordinating,
+              managing, and allocating human capital, or employees, in ways that
+              move an organization's goals forward. HRM focuses on investing in
+              employees, ensuring their safety, and managing all aspects of
+              staffing from hiring to compensation and development.
             </p>
           </div>
           <div className="card  w-full  shadow-2xl bg-base-100">
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
-              
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Full Name</span>
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Name"
-                    className="input input-bordered "
-                    name="name"
-                    // required
-                    {...register("name", { required: true })}
-                  />
-                  {errors.name && <span>This field is required</span>}
-                </div>
-             
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Full Name</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Name"
+                  className="input input-bordered "
+                  name="name"
+                  // required
+                  {...register("name", { required: true })}
+                />
+                {errors.name && <span>This field is required</span>}
+              </div>
 
-           
+              <div className="form-control">
+                <input
+                  // {...register("name")}
+                  type="text"
+                  placeholder="photoURL"
+                  className="input input-bordered"
+                  name="photoURL"
+                  defaultValue="photoURL"
+                  hidden
+                  // required
+                  {...register("photoURL")}
+                />
+                {errors.photoURL && <span>This field is required</span>}
+              </div>
 
-                <div className="form-control">
-                  <input
-                    // {...register("name")}
-                    type="text"
-                    placeholder="photoURL"
-                    className="input input-bordered"
-                    name="photoURL"
-                    defaultValue="photoURL"
-                    hidden
-                    // required
-                    {...register("photoURL")}
-                  />
-                  {errors.photoURL && <span>This field is required</span>}
-                </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Email</span>
+                </label>
+                <input
+                  //   {...register("email")}
+                  type="email"
+                  placeholder="email"
+                  className="input input-bordered"
+                  name="email"
+                  // required
+                  {...register("email", { required: true })}
+                />
+                {errors.email && <span>This field is required</span>}
+              </div>
 
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Email</span>
-                  </label>
-                  <input
-                    //   {...register("email")}
-                    type="email"
-                    placeholder="email"
-                    className="input input-bordered"
-                    name="email"
-                    // required
-                    {...register("email", { required: true })}
-                  />
-                  {errors.email && <span>This field is required</span>}
-                </div>
-
-      
-
-             
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Date of Birth</span>
-                  </label>
-                  <input
-                    //   {...register("password")}
-                    type="date"
-                    placeholder="Date of Birth"
-                    className="input input-bordered"
-                    name="dob"
-                    // required
-                    {...register("dob", { required: true })}
-                  />
-                  {errors.dob && <span>This field is required</span>}
-                </div>
-           
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Date of Birth</span>
+                </label>
+                <input
+                  //   {...register("password")}
+                  type="date"
+                  placeholder="Date of Birth"
+                  className="input input-bordered"
+                  name="dob"
+                  // required
+                  {...register("dob", { required: true })}
+                />
+                {errors.dob && <span>This field is required</span>}
+              </div>
 
               <div className="form-control">
                 <label className="label">

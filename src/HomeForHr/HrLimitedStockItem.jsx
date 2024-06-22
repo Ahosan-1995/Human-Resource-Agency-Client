@@ -1,4 +1,8 @@
+import OnlyAssetsReload from "../Hooks/OnlyAssetsReload";
+import OnlyRequestedAsset from "../Hooks/OnlyRequestedAsset";
+
 const HrLimitedStockItem = () => {
+  const [allAssets,loading,refetch]=OnlyAssetsReload();
   return (
     <div>
       <h1 className="text-center font-bold text-3xl mb-5  mt-10">
@@ -6,23 +10,24 @@ const HrLimitedStockItem = () => {
       </h1>
       <div className="overflow-x-auto">
         <table className="table">
-          {/* head */}
           <thead>
             <tr>
-              <th>Sl</th>
               <th>Name</th>
-              <th>Email</th>
-              <th>Request Status</th>
+              <th>Type</th>
+              <th>Quantity</th>
             </tr>
           </thead>
           <tbody>
-            {/* row 1 */}
-            <tr>
-              <th>1</th>
-              <td>Cy Ganderton</td>
-              <td>Quality Control Specialist</td>
-              <td>Blue</td>
-            </tr>
+            {allAssets
+              .filter((request) => request.quantity <= 10)
+              .slice(0, 3)
+              .map((request) => (
+                <tr key={request._id}>
+                  <td>{request.productName}</td>
+                  <td>{request.productType}</td>
+                  <td>{request.quantity}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

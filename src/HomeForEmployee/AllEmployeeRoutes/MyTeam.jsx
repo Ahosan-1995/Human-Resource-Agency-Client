@@ -31,7 +31,7 @@ const MyTeam = () => {
 
   useEffect(() => {
     // Log filteredUsers whenever it changes
-    console.log(filteredUsers);
+    // console.log(filteredUsers);
   
     // Log filteredUserAssociatedEmail whenever it changes
     const filteredUserAssociatedEmail = filteredUsers[0]?.associatedEmail;

@@ -1,36 +1,34 @@
-import { useContext, useEffect, useState } from "react";
-import OnlyUsersReload from "../Hooks/OnlyUsersReload";
-import { AuthContext } from "../Provider/AuthProvider";
+
 
 
 
 const Footer = () => {
-  const [allUsers, , refetch] = OnlyUsersReload();
+  // const [allUsers, , refetch] = OnlyUsersReload();
 
-  const [filteredUsers, setFilteredUsers] = useState();
+  // const [filteredUsers, setFilteredUsers] = useState();
 
-  const [logoForUser, setLogoForUser] = useState();
-  const { user } = useContext(AuthContext);
+  // const [logoForUser, setLogoForUser] = useState();
+  // const { user } = useContext(AuthContext);
 
-  useEffect(() => {
-    if (allUsers.length > 0) {
-      const filtered = allUsers.filter((user1) => user1.email === user.email);
-      setFilteredUsers(filtered);
-    }
-  }, [allUsers, user]);
+  // useEffect(() => {
+  //   if (allUsers.length > 0) {
+  //     const filtered = allUsers?.filter((user1) => user1.email === user.email);
+  //     setFilteredUsers(filtered);
+  //   }
+  // }, [allUsers, user]);
 
-  // console.log(filteredUsers);
+  // // console.log(filteredUsers);
 
-  // const filteredUserAssociatedEmail=filteredUsers[0]?.associatedEmail;
-  // console.log(filteredUserAssociatedEmail);
+  // // const filteredUserAssociatedEmail=filteredUsers[0]?.associatedEmail;
+  // // console.log(filteredUserAssociatedEmail);
 
-  useEffect(() => {
-    const logoForUser = filteredUsers?.[0].logo;
+  // useEffect(() => {
+  //   const logoForUser = filteredUsers?.[0].logo;
 
-    setLogoForUser(logoForUser);
-  }, [filteredUsers]);
+  //   setLogoForUser(logoForUser);
+  // }, [filteredUsers]);
 
-  // console.log(logoForUser);
+  // // console.log(logoForUser);
 
   return (
     <div>
@@ -39,7 +37,7 @@ const Footer = () => {
           <div>
             <img
               className="mb-5"
-              src={logoForUser}
+              src="https://i.ibb.co/5FYfLgw/Logo.png"
               alt="logo"
             />
             <p>

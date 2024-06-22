@@ -78,7 +78,7 @@ export const router = createBrowserRouter([
        {
         path:'addEmployee',
         element:<PrivateRoute><AddEmployee></AddEmployee></PrivateRoute>,
-        loader: ()=>fetch('http://localhost:5000/allUsers')
+        loader: ()=>fetch('https://assignment12-server-side-smoky.vercel.app/allUsers')
        },
        {
         path:'profile',

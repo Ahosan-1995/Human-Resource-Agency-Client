@@ -1,17 +1,15 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import SocialLogin from "../SharedComponents/SocialLogin";
 import UseAxiosPublic from "../Provider/UseAxiosPublic";
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { Helmet } from "react-helmet-async";
+import Swal from "sweetalert2";
 
 const RegisterHr = () => {
-  
   const axiosPublic = UseAxiosPublic();
 
-  const {createUser,updateUserProfile}=useContext(AuthContext);
-
+  const { createUser, updateUserProfile } = useContext(AuthContext);
 
   const {
     register,
@@ -23,52 +21,44 @@ const RegisterHr = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    console.log(data)
-    createUser(data.email,data.password)
-    .then(result=>{
-        const loggedUser=result.user;
-        // console.log(loggedUser);
-        updateUserProfile(data.name,data.photoURL)
-        .then(()=>{
-            console.log('user profile info updated');
-            // navigate('/login');  //remove after post on database
+    // console.log(data)
+    createUser(data.email, data.password).then((result) => {
+      const loggedUser = result.user;
+      // console.log(loggedUser);
+      updateUserProfile(data.name, data.photoURL)
+        .then(() => {
+          console.log("user profile info updated");
+          // navigate('/login');  //remove after post on database
 
-// to do when create data base
+          // to do when create data base
 
-            const userInfo={
-                name: data.name,
-                companyName: data.companyName,
-                email: data.email,
-                logo: data.photoURL,
-                dob: data.dob,
-                role: data.role,
-
+          const userInfo = {
+            name: data.name,
+            companyName: data.companyName,
+            email: data.email,
+            logo: data.photoURL,
+            dob: data.dob,
+            role: data.role,
+          };
+          axiosPublic.post("/assets", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              // console.log('user added to the database');
+              Swal.fire({
+                title: "Success",
+                text: "logged in Successfully",
+                icon: "Success",
+                confirmButtonText: "Cool",
+              });
+              reset();
+              navigate("/");
             }
-            axiosPublic.post('/assets', userInfo)
-            .then(res=>{
-                if(res.data.insertedId){
-                    console.log('user added to the database');
-                    reset();
-                    navigate('/');
-                }
-            })
-
-
-
+          });
         })
-        .catch(error=>{
-            console.log(error);
-        })
-    })
-};
-
-
-
-
-
-
-
-
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  };
 
   return (
     <div>
@@ -80,9 +70,11 @@ const RegisterHr = () => {
           <div className="text-center lg:text-left">
             <h1 className="text-5xl font-bold">Sign up now!</h1>
             <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
+              Human resource management, or HRM, involves coordinating,
+              managing, and allocating human capital, or employees, in ways that
+              move an organization's goals forward. HRM focuses on investing in
+              employees, ensuring their safety, and managing all aspects of
+              staffing from hiring to compensation and development.
             </p>
           </div>
           <div className="card  w-full  shadow-2xl bg-base-100">
@@ -185,8 +177,6 @@ const RegisterHr = () => {
                 </div>
               </div>
 
-
-
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Password</span>
@@ -208,14 +198,13 @@ const RegisterHr = () => {
                 </label>
               </div>
 
-
-{/* This portion is for role default value will be admin*/}
+              {/* This portion is for role default value will be admin*/}
 
               <div className="form-control">
                 <label className="label">
                   {/* <span className="label-text">Role</span> */}
                 </label>
-                <input                
+                <input
                   type="text"
                   placeholder="role"
                   className="input input-bordered"
@@ -230,7 +219,7 @@ const RegisterHr = () => {
                 {errors.role && <span>This field is required</span>}
               </div>
 
-{/* This portion is for role default value will be admin*/}
+              {/* This portion is for role default value will be admin*/}
 
               <div className="form-control mt-6">
                 <input
@@ -247,7 +236,6 @@ const RegisterHr = () => {
                   Already have an account? <Link to="/login">Please Login</Link>
                 </small>
               </p>
-              <SocialLogin></SocialLogin>
             </div>
           </div>
         </div>

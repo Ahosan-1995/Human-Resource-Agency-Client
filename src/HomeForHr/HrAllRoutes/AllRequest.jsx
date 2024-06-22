@@ -13,7 +13,7 @@ const AllRequest = () => {
 
 
   const [requestedAssets, loading, refetch] = OnlyRequestedAsset();
-  console.log(requestedAssets);
+  // console.log(requestedAssets);
   const axiosSecure = UseAxiosSecure();
   const currentDate = new Date().toLocaleDateString();
   const { user } = useContext(AuthContext);
@@ -55,7 +55,7 @@ const handleReject=(id)=>{
   }).then((result) => {
     if (result.isConfirmed) {
       axiosSecure.delete(`/requestedAsset/${id}`).then((res) => {
-        console.log(res);
+        // console.log(res);
         // if (res.data.deletedCount>0) {
         refetch();
         Swal.fire({
@@ -78,8 +78,8 @@ const handleApprove=(id)=>{
     approverEmail: user.email,
   };
 
-  console.log(allData);
-  fetch(`http://localhost:5000/requestedAsset/${id}`, {
+  // console.log(allData);
+  fetch(`https://assignment12-server-side-smoky.vercel.app/requestedAsset/${id}`, {
     method: "PUT",
     headers: {
       "content-type": "application/json",
