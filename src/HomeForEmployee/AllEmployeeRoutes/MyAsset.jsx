@@ -1,14 +1,17 @@
 import { Helmet } from "react-helmet-async";
-import OnlyUsersReload from "../../Hooks/OnlyUsersReload";
-import OnlyRequestedAsset from "../../Hooks/OnlyRequestedAsset";
 
-import React, { useState } from "react";
+import OnlyRequestedAsset from "../../Hooks/OnlyRequestedAsset";
+import Swal from "sweetalert2";
+
+import React, { useContext, useState } from "react";
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 
 // For modal
 
 import Modal from "react-modal";
 import { useForm } from "react-hook-form";
+import { AuthContext } from "../../Provider/AuthProvider";
+import UseAxiosSecure from "../../Provider/UseAxiosSecure";
 
 const customStyles = {
   content: {
@@ -38,10 +41,12 @@ const styles = StyleSheet.create({
 
 const MyAsset = () => {
   const [requestedAssets, loading, refetch] = OnlyRequestedAsset();
+  const { user } = useContext(AuthContext);
   // console.log(requestedAssets);
   const { register, handleSubmit, reset } = useForm();
+  const axiosSecure = UseAxiosSecure();
 
-  const [allUsers] = OnlyUsersReload();
+
   // console.log(allUsers);
   // For modal
   let subtitle;
@@ -63,6 +68,33 @@ const MyAsset = () => {
   // For modal
 
   const handlePrint = () => {};
+
+
+  const handleRemove=(id)=>{
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/requestedAsset/${id}`).then((res) => {
+          // console.log(res);
+          // if (res.data.deletedCount>0) {
+          refetch();
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success",
+          });
+          // }
+        });
+      }
+    });
+  }
 
   return (
     <div>
@@ -94,6 +126,7 @@ const MyAsset = () => {
             </thead>
             <tbody>
               {requestedAssets.map((asset, index) => (
+                user?.email==asset.requesterEmail?
                 <tr key={asset._id}>
                   <th>{index + 1}</th>
                   <th>{asset.productName}</th>
@@ -107,7 +140,7 @@ const MyAsset = () => {
                         Remove
                       </button>
                     ) : (
-                      <button className="btn">Remove</button>
+                      <button onClick={()=>handleRemove(asset._id)}  className="btn">Remove</button>
                     )}
                   </th>
                   {asset.status === "approved" ? (
@@ -163,6 +196,8 @@ const MyAsset = () => {
                     ""
                   )}
                 </tr>
+                :
+                ""
               ))}
             </tbody>
           </table>
