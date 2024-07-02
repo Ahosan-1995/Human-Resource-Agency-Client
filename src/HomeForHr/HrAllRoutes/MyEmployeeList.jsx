@@ -53,7 +53,7 @@ const MyEmployeeList = () => {
         <table className="table table-xs">
           <thead>
             <tr>
-              <th>Sl</th>
+          
               <th>Image</th>
               <th>Name</th>
               <th>Type</th>
@@ -61,11 +61,11 @@ const MyEmployeeList = () => {
             </tr>
           </thead>
           <tbody>
-            {allUsers.map((myUser, index) =>
+            {allUsers.map((myUser) =>
               myUser.role === "employee" &&
               myUser.associatedEmail === `${user.email}` ? (
                 <tr key={myUser._id}>
-                  <th>{index + 1}</th>
+                
                   <th>
                     <img
                       className="w-10 rounded-full"

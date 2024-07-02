@@ -115,7 +115,7 @@ const MyAsset = () => {
           <table className="table table-xs">
             <thead>
               <tr>
-                <th>Sl</th>
+                
                 <th>Asset name</th>
                 <th>Asset type</th>
                 <th>Request date</th>
@@ -128,7 +128,7 @@ const MyAsset = () => {
               {requestedAssets.map((asset, index) => (
                 user?.email==asset.requesterEmail?
                 <tr key={asset._id}>
-                  <th>{index + 1}</th>
+               
                   <th>{asset.productName}</th>
                   <th>{asset.productType}</th>
                   <th>{asset.requestDate}</th>

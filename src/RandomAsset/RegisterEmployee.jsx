@@ -87,7 +87,7 @@ const RegisterEmployee = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder="Name"
+                  placeholder="Agfgfame"
                   className="input input-bordered "
                   name="name"
                   // required

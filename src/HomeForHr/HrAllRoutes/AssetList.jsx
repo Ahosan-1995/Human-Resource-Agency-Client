@@ -162,7 +162,7 @@ const AssetList = () => {
         <table className="table table-xs">
           <thead>
             <tr>
-              <th>Sl</th>
+              
               <th>Product name</th>
               <th>Product type</th>
               <th>Product quantity</th>
@@ -171,10 +171,10 @@ const AssetList = () => {
             </tr>
           </thead>
           <tbody>
-            {allAssets.map((asset, index) =>
+            {allAssets.map((asset) =>
               user.email === asset.email ? (
                 <tr key={asset._id}>
-                  <th>{index + 1}</th>
+                  
                   <th>{asset.productName}</th>
                   <th>{asset.productType}</th>
                   <th>{asset.quantity}</th>

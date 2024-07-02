@@ -115,7 +115,7 @@ const handleApprove=(id)=>{
         <table className="table table-xs">
           <thead>
             <tr>
-              <th>Sl</th>
+             
               <th>Asset name</th>
               <th>Asset type</th>
               <th>Email of requester</th>
@@ -128,8 +128,8 @@ const handleApprove=(id)=>{
           </thead>
           <tbody>
             {
-                records.map((request,index)=><tr key={request._id}>
-                    <th>{index+1}</th>
+                records.map((request)=><tr key={request._id}>
+                    
                     <th>{request.productName}</th>
                     <th>{request.productType}</th>
                     <th>{request.requesterEmail

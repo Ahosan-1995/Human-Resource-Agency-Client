@@ -52,7 +52,7 @@ const MyTeam = () => {
         <table className="table table-xs">
           <thead>
             <tr>
-              <th>Sl</th>
+              
               <th>Image of the member</th>
               <th>Name of the member</th>
               <th>Member type</th>
@@ -60,10 +60,10 @@ const MyTeam = () => {
           </thead>
           <tbody>
             {
-              allUsers.map((user,index)=>
+              allUsers.map((user)=>
               filteredUserAssociatedEmail==user.associatedEmail || filteredUserAssociatedEmail==user.email?
               <tr key={user._id}>
-                <th>{index+1}</th>
+                
                 <th>
                     <img
                       className="w-10 rounded-full"

@@ -60,21 +60,21 @@ const AuthProvider = ({children}) => {
 
 // Bellow portion for JWT
 
-            // if(currentUser){
-            //     // get token and store client side
-            //     const userInfo={email: currentUser.email};
-            //     axiosPublic.post('/jwt',userInfo)
-            //     .then(res=>{
-            //         if(res.data.token){
-            //             localStorage.setItem('access-token', res.data.token);
-            //         }
-            //     })
+            if(currentUser){
+                // get token and store client side
+                const userInfo={email: currentUser.email};
+                axiosPublic.post('/jwt',userInfo)
+                .then(res=>{
+                    if(res.data.token){
+                        localStorage.setItem('access-token', res.data.token);
+                    }
+                })
 
-            // }else{
-            //     // To do: remove tocke if tocken store in client side (it can be localsorage,cash,inmemory)
-            //     localStorage.removeItem('access-token');
+            }else{
+                // To do: remove tocke if tocken store in client side (it can be localsorage,cash,inmemory)
+                localStorage.removeItem('access-token');
 
-            // }
+            }
 
 // Above portion for JWT
 
